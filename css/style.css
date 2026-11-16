@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Kdam+Thmor+Pro&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+* {
+    margin: 0;
+}
+body{
+    font-family: "Archivo Black", sans-serif;
+}
+
+
+
+.header-menu{
+    border: 1px solid red;
+    position: absolute;
+    width: 100%;
+    color: white;
+   
+}
+
+
+.header-container
+{
+    display: flex; 
+    border: 1px solid blue;
+    position: relative;
+    z-index: 1001;
+    height: 50px;
+    color: white
+}
+.header-container h1,
+.header-container a{
+    color: inherit;
+}
+.header-container:hover{
+    background: white;
+}
+.header-container:hover .header-logo h1{
+    color:black;
+}
+.header-container:hover .header-nav a{
+    color: black
+}
+.header-logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+    
+}
+
+.header-nav{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    /* color: white; */
+    font-family: "Kdam Thmor Pro", sans-serif;
+    font-size: 11px;
+    width: 90%;
+}
+.header-nav a{
+   
+    text-decoration: none;
+    margin-right: 100px;
+}
+
+.header-nav a:hover{
+    border-bottom: 1px solid black;
+    
+    animation-duration: 1s;
+}
+
+.main{
+    background-image: url("/img/kafka.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid;
+    height: 100vh;
+}
+
+.hero{
+    display: flex;
+    position:relative;
+    overflow: hidden;
+    color: white;
+    justify-content: center;
+    border: 1px solid red;
+    gap: 20px;
+    height: 100vh;
+}
+
+.hero h1{
+    position: absolute;
+    top: 15%;
+    font-size: 20vw;
+    font-weight: 900;
+    line-height: 0.8;
+    white-space: nowrap;
+    margin: 0;
+}
+
+
+.main-bottom{
+    background: white;
+    height: 150px;
+}
