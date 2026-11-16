@@ -5,48 +5,48 @@
 * {
     margin: 0;
 }
+
 body{
     font-family: "Archivo Black", sans-serif;
 }
 
-
-
 .header-menu{
-    border: 1px solid red;
     position: absolute;
     width: 100%;
     color: white;
-   
 }
 
 
 .header-container{
     display: flex; 
-    border: 1px solid blue;
     position: relative;
     z-index: 1001;
     height: 50px;
     color: white
 }
+
 .header-container h1,
 .header-container a{
     color: inherit;
 }
+
 .header-container:hover{
     background: white;
 }
+
 .header-container:hover .header-logo h1{
     color:black;
 }
+
 .header-container:hover .header-nav a{
     color: black
 }
+
 .header-logo{
     display: flex;
     justify-content: center;
     align-items: center;
     width: 10%;
-    
 }
 
 .header-nav{
@@ -59,14 +59,11 @@ body{
     width: 90%;
 }
 .header-nav a{
-   
     text-decoration: none;
     margin-right: 100px;
 }
 
 .header-nav a:hover{
-    border-bottom: 1px solid black;
-    
     animation-duration: 1s;
 }
 
@@ -75,7 +72,6 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    border: 1px solid;
     height: 100vh;
 }
 
@@ -85,7 +81,6 @@ body{
     overflow: hidden;
     color: white;
     justify-content: center;
-    border: 1px solid red;
     gap: 20px;
     height: 100vh;
 }
