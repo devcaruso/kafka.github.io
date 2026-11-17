@@ -178,7 +178,7 @@ body {
 .grade {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10;
+  gap: 10px;
 }
 
 /* ---------- Card ---------- */
@@ -200,16 +200,20 @@ body {
 
 .card__img {
   position: absolute;
+  width: 100%;
   inset: 0;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   transition: opacity 0.3s ease;
+  bottom: 0;
+
 }
 
 /* Imagem alternativa (aparece no hover) */
 .card__img--hover {
   opacity: 0;
+  
 }
 
 .card:hover .card__img--hover {
@@ -218,7 +222,7 @@ body {
 
 /* Botão "Adição rápida" colado na base da imagem */
 .card__botao {
-  position: absolute;
+  position:absolute;
   left: 0;
   right: 0;
   bottom: 0;
@@ -233,11 +237,14 @@ body {
   opacity: 0;
   transform: translateY(100%);
   transition: opacity 0.25s ease, transform 0.25s ease;
+
 }
+
 
 .card:hover .card__botao {
   opacity: 1;
   transform: translateY(0);
+  
 }
 
 /* ---------- Informações ---------- */
