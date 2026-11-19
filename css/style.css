@@ -134,51 +134,48 @@ body {
     margin: 0;
 }
 
-/* .main-main{
-    height: 100vh;
-}
-
-.main-hero{
-    display: flex;
-    justify-content: center;
-    height: 50vh;
-}
-
-.main-products{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1%;
-    gap: 13px;
-    width: 98%;
-    height: 50vh;
-}
-.divs{
-    display: flex;
-    align-items: end;
-    border: 1px solid black;
-    width: 30%;
-    height: 50vh;
-}
-.main-abaut{
-    display: flex;
-    align-items: end;
-    width: 99.8%;
-    height: 40px;
-    border: 1px solid black;
-} */
 /* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  background: #fff;
+  color: #111;
+}
 
 /* ---------- Grade ---------- */
 .catalogo {
   width: 100%;
-  padding: 0;
+  padding: 0 24px;
 }
 
 .grade {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 24px;
 }
 
 /* ---------- Card ---------- */
@@ -186,34 +183,32 @@ body {
   position: relative;
 }
 
-.card__link {
-  display: block;
-}
-
-/* Área da imagem (proporção retrato) */
+/* Área da imagem (proporção das fotos: 4:5) */
 .card__midia {
   position: relative;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
   background: #f4f4f4;
 }
 
+.card__img-link {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
 .card__img {
   position: absolute;
-  width: 100%;
   inset: 0;
-  background-size: contain;
+  background-size: contain;      /* "cover" se quiser preencher tudo */
   background-position: center;
   background-repeat: no-repeat;
   transition: opacity 0.3s ease;
-  bottom: 0;
-
 }
 
 /* Imagem alternativa (aparece no hover) */
 .card__img--hover {
   opacity: 0;
-  
 }
 
 .card:hover .card__img--hover {
@@ -222,7 +217,7 @@ body {
 
 /* Botão "Adição rápida" colado na base da imagem */
 .card__botao {
-  position:absolute;
+  position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
@@ -237,14 +232,12 @@ body {
   opacity: 0;
   transform: translateY(100%);
   transition: opacity 0.25s ease, transform 0.25s ease;
-
 }
 
-
-.card:hover .card__botao {
+.card:hover .card__botao,
+.card__botao:focus-visible {
   opacity: 1;
   transform: translateY(0);
-  
 }
 
 /* ---------- Informações ---------- */
@@ -284,6 +277,294 @@ body {
   background: #000;
 }
 
+/* ================================================
+   Painel "Adição rápida" (lateral direita)
+   ================================================ */
+.rapida-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: transparent;
+}
+
+.rapida {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  width: min(42vw, 600px);
+  min-width: 360px;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: #f7f6f3;
+  transform: translateX(100%);
+  transition: transform 0.35s ease;
+}
+
+.rapida.is-aberta {
+  transform: translateX(0);
+}
+
+/* Topo: "Adição rápida" ... "Fechar" */
+.rapida__topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px 0;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.rapida__fechar {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Corpo: cabeçalho + imagem (cresce) + tamanhos + botão */
+.rapida__corpo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 8px 20px 20px;
+}
+
+.rapida__titulo {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.rapida__preco {
+  margin-top: 4px;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.rapida__midia {
+  flex: 1;
+  min-height: 0;
+  padding: 16px 0;
+}
+
+.rapida__img {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Tamanhos */
+.rapida__tamanhos-topo {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 8px;
+  color: #666;
+}
+
+.rapida__medidas {
+  text-decoration: none;
+}
+
+.rapida__lista {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.rapida__tamanho {
+  width: 100%;
+  padding: 6px 4px;
+  text-align: left;
+  font-size: 9px;
+  font-weight: 700;
+  color: #333;
+  border-bottom: 1px solid #999;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.rapida__tamanho:hover {
+  background: #e8e6e1;
+}
+
+.rapida__tamanho.is-ativo {
+  background: #0e0f12;
+  color: #fff;
+  border-bottom-color: #0e0f12;
+}
+
+/* Botão principal */
+.rapida__acao {
+  width: 100%;
+  padding: 14px 0;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  background: #0e0f12;
+  transition: background 0.2s ease;
+}
+
+.rapida__acao:disabled {
+  background: #9b9a95;
+  cursor: not-allowed;
+}
+
+/* ================================================
+   Painel "Adição rápida" (lateral direita)
+   ================================================ */
+.rapida-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: transparent;
+}
+
+.rapida {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  width: min(42vw, 600px);
+  min-width: 360px;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: #f7f6f3;
+  transform: translateX(100%);
+  transition: transform 0.35s ease;
+}
+
+.rapida.is-aberta {
+  transform: translateX(0);
+}
+
+/* Topo: "Adição rápida" ... "Fechar" */
+.rapida__topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px 0;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.rapida__fechar {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Corpo: cabeçalho + imagem (cresce) + tamanhos + botão */
+.rapida__corpo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 8px 20px 20px;
+}
+
+.rapida__titulo {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.rapida__preco {
+  margin-top: 4px;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.rapida__midia {
+  flex: 1;
+  min-height: 0;
+  padding: 16px 0;
+}
+
+.rapida__img {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Tamanhos */
+.rapida__tamanhos-topo {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 8px;
+  color: #666;
+}
+
+.rapida__medidas {
+  text-decoration: none;
+}
+
+.rapida__lista {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.rapida__tamanho {
+  width: 100%;
+  padding: 6px 4px;
+  text-align: left;
+  font-size: 9px;
+  font-weight: 700;
+  color: #333;
+  border-bottom: 1px solid #999;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.rapida__tamanho:hover {
+  background: #e8e6e1;
+}
+
+.rapida__tamanho.is-ativo {
+  background: #0e0f12;
+  color: #fff;
+  border-bottom-color: #0e0f12;
+}
+
+/* Botão principal */
+.rapida__acao {
+  width: 100%;
+  padding: 14px 0;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  background: #0e0f12;
+  transition: background 0.2s ease;
+}
+
+.rapida__acao:disabled {
+  background: #9b9a95;
+  cursor: not-allowed;
+}
+
 /* ---------- Responsivo ---------- */
 @media (max-width: 1024px) {
   .grade {
@@ -294,13 +575,51 @@ body {
 @media (max-width: 700px) {
   .grade {
     grid-template-columns: repeat(2, 1fr);
-    gap:10px
+    gap: 12px;
+  }
+
+  .catalogo {
+    padding: 0 12px;
+  }
+
+  .rapida {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* No celular não existe hover: mostra o botão sempre */
+  .card__botao {
+    opacity: 1;
+    transform: none;
   }
 }
-@media  screen and (max-width:600px){
-    *{
-        margin: 0;
-        padding: 0;
 
-    }
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 1024px) {
+  .grade {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .grade {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .catalogo {
+    padding: 0 12px;
+  }
+
+  .rapida {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* No celular não existe hover: mostra o botão sempre */
+  .card__botao {
+    opacity: 1;
+    transform: none;
+  }
 }

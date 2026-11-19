@@ -36,21 +36,26 @@
           <div class="card__midia">
             <div class="card__img card__img--principal" style="background-image: url('img/camiseta-costas.png')"></div>
             <div class="card__img card__img--hover" style="background-image: url('img/camiseta-frente.png')"></div>
-            <span class="card__botao">Adição rápida</span>
+             </a>
+             <button type="button" class="card__botao" data-abrir-rapida
+                  data-nome="Nome do produto" data-preco="R$ 0,00 BRL" data-imagem="img/camiseta-frente.png">
+            Adição rápida
+          
+          </button>
           </div>
           <div class="card__info">
             <h3 class="card__nome">Nome do produto</h3>
             <span class="card__preco">R$ 0,00 BRL</span>
             <span class="card__cores">1 Cor</span>
           </div>
-        </a>
+        
       </li>
 
       <!-- Card 2 -->
       <li class="card">
         <a href="#" class="card__link">
           <div class="card__midia">
-            <div class="card__img card__img--principal"></div>
+            <div class="card__img card__img--principal" style="background-image: url('img/camiseta-costas.png');"></div>
             <div class="card__img card__img--hover"></div>
             <span class="card__botao">Adição rápida</span>
           </div>
@@ -157,5 +162,44 @@
 
     </ul>
   </main>
+  <!-- ===== Painel "Adição rápida" ===== -->
+  <div class="rapida-overlay" data-fechar-rapida hidden></div>
+
+  <aside class="rapida" id="rapida" role="dialog" aria-modal="true" aria-labelledby="rapida-titulo" aria-hidden="true">
+    <header class="rapida__topo">
+      <span class="rapida__rotulo">Adição rápida</span>
+      <button type="button" class="rapida__fechar" data-fechar-rapida>Fechar</button>
+    </header>
+
+    <div class="rapida__corpo">
+      <div class="rapida__cabecalho">
+        <h2 class="rapida__titulo" id="rapida-titulo"></h2>
+        <p class="rapida__preco"></p>
+      </div>
+
+      <div class="rapida__midia">
+        <div class="rapida__img" role="img" aria-label=""></div>
+      </div>
+
+      <div class="rapida__tamanhos">
+        <div class="rapida__tamanhos-topo">
+          <span>Tamanho:</span>
+          <a href="#" class="rapida__medidas">Veja a tabela de medidas ›</a>
+        </div>
+        <ul class="rapida__lista">
+            <li><button type="button" class="rapida__tamanho" data-tamanho="XS" aria-pressed="false">XS</button></li>
+            <li><button type="button" class="rapida__tamanho" data-tamanho="S" aria-pressed="false">S</button></li>
+            <li><button type="button" class="rapida__tamanho" data-tamanho="M" aria-pressed="false">M</button></li>
+            <li><button type="button" class="rapida__tamanho" data-tamanho="L" aria-pressed="false">L</button></li>
+            <li><button type="button" class="rapida__tamanho" data-tamanho="XL" aria-pressed="false">XL</button></li>
+            <li><button type="button" class="rapida__tamanho" data-tamanho="XXL" aria-pressed="false">XXL</button></li>
+        </ul>
+      </div>
+
+      <button type="button" class="rapida__acao" disabled>Selecionar o tamanho</button>
+    </div>
+  </aside>
+
+  <script src="/js/index.js"></script>
 </body>
 </html>
