@@ -82,3 +82,37 @@
     fechar();
   });
 })();
+
+(() => {
+  const menu     = document.getElementById('menu');
+  const overlay  = document.querySelector('.menu-overlay');
+  const botaoAbrir = document.querySelector('[data-abrir-menu]');
+
+  function abrir() {
+    menu.classList.add('is-aberto');
+    menu.setAttribute('aria-hidden', 'false');
+    overlay.hidden = false;
+    document.body.classList.add('menu-aberto');
+    botaoAbrir.setAttribute('aria-expanded', 'true');
+    menu.querySelector('.menu__fechar').focus();
+  }
+
+  function fechar() {
+    menu.classList.remove('is-aberto');
+    menu.setAttribute('aria-hidden', 'true');
+    overlay.hidden = true;
+    document.body.classList.remove('menu-aberto');
+    botaoAbrir.setAttribute('aria-expanded', 'false');
+    botaoAbrir.focus();
+  }
+
+  botaoAbrir.addEventListener('click', abrir);
+
+  document.querySelectorAll('[data-fechar-menu]').forEach(el =>
+    el.addEventListener('click', fechar)
+  );
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && menu.classList.contains('is-aberto')) fechar();
+  });
+})();

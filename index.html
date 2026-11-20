@@ -10,22 +10,79 @@
 </head>
 <body>
 
-    <header class="header-menu">
-        <div class="header-container">
+   <main class="main">
 
-            <div class="header-logo"><h1>kafka</h1></div>
-            <div class="header-nav">
-                <a href=""><b>FEMININO</b></a>
-                <a href=""><b>MASCULINO</b></a>
-                <a href=""><b>use.kafka</b></a>
-            </div>
+    <!-- Topo: header + faixa de aviso (ficam sobre o degradê escuro) -->
+    <div class="topo">
+      <header class="header">
+        <a href="#" class="header__carrinho">Carrinho<sup>0</sup></a>
+        <a href="#" class="header__logo">kafka</a>
+        <button type="button" class="header__menu" aria-controls="menu" aria-expanded="false" data-abrir-menu>Menu</button>
+      </header>
+
+      <!-- Faixa de texto corrida: troque os textos à vontade -->
+      <div class="aviso" aria-label="Avisos">
+        <div class="aviso__trilho">
+          <div class="aviso__grupo">
+            <span>Nova coleção: use.kafka</span>
+            <span>Feminino e masculino: já disponíveis</span>
+            <span>Frete grátis acima de R$ 500</span>
+          </div>
+          <div class="aviso__grupo" aria-hidden="true">
+            <span>Nova coleção: use.kafka</span>
+            <span>Feminino e masculino: já disponíveis</span>
+            <span>Frete grátis acima de R$ 500</span>
+          </div>
         </div>
-    </header>
-    <main class="main">
-        <div class="hero">
-            <h1>KAFKA</h1>
-        </div>
-    </main>
+      </div>
+    </div>
+
+    <!-- Título grande + link da loja -->
+    <div class="hero">
+      <h1>KAFKA</h1>
+      <a href="#" class="loja">Loja</a>
+    </div>
+
+  </main>
+
+  <!-- ===== Menu lateral ===== -->
+  <div class="menu-overlay" data-fechar-menu hidden></div>
+
+  <aside class="menu" id="menu" aria-label="Menu principal" aria-hidden="true">
+    <div class="menu__topo">
+      <button type="button" class="menu__fechar" aria-label="Fechar menu" data-fechar-menu>×</button>
+      <a href="#" class="menu__pesquisar">Pesquisar</a>
+    </div>
+
+    <nav class="menu__nav">
+      <ul>
+        <li><a href="#">Novo</a></li>
+        <li><a href="#">Jeans</a></li>
+        <li><a href="#">Suores</a></li>
+        <li><a href="#">Roupa de frio</a></li>
+        <li><a href="#">Tops</a></li>
+        <li><a href="#">Chapéus</a></li>
+        <li><a href="#">Calças</a></li>
+        <li><a href="#">Shorts</a></li>
+        <li><a href="#">Crianças</a></li>
+        <li><a href="#">Roupas íntimas</a></li>
+        <li><a href="#">Acessórios</a></li>
+        <li><a href="#">Estilo de vida</a></li>
+        <li><a href="#">Calçados</a></li>
+        <li><a href="#">Todos</a></li>
+      </ul>
+    </nav>
+
+    <div class="menu__colab">
+      <a href="#">Colaborações</a>
+    </div>
+
+    <div class="menu__rodape">
+      <button type="button" class="menu__moeda">BRL / R$ <span aria-hidden="true">⌄</span></button>
+    </div>
+  </aside>
+
+    
 
      <main class="catalogo">
     <ul class="grade">
@@ -178,7 +235,7 @@
       </div>
 
       <div class="rapida__midia">
-        <div class="rapida__img" role="img" aria-label=""></div>
+        <div class="rapida__img" style="background-image: url('img/camiseta-costas.png');" role="img" aria-label=""></div>
       </div>
 
       <div class="rapida__tamanhos">
