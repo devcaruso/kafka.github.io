@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Kdam+Thmor+Pro&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+/* Fontes: carregadas no <head> do index.html (Archivo Black + Archivo) */
 
 /* ---------- Base ---------- */
 *,
@@ -36,26 +34,18 @@ ul {
   padding: 0;
 }
 
-
-a {
-  color: inherit;
-  text-decoration: none;
+/* Fundo clicável que fecha o menu / o painel (invisível) */
+.menu-overlay,
+.rapida-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: transparent;
 }
 
-button {
-  font: inherit;
-  color: inherit;
-  background: none;
-  border: 0;
-  padding: 0;
-  cursor: pointer;
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+/* =====================================================
+   HERO
+   ===================================================== */
 
 /* ---------- Foto de fundo (tela cheia) ---------- */
 .main {
@@ -208,14 +198,9 @@ body.menu-aberto .header {
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 }
 
-/* ---------- Menu lateral (abre pela direita) ---------- */
-.menu-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 90;
-  background: transparent;
-}
-
+/* =====================================================
+   MENU LATERAL (abre pela direita)
+   ===================================================== */
 .menu {
   position: fixed;
   top: 0;
@@ -311,13 +296,13 @@ body.menu-aberto .header {
   color: #555;
 }
 
-
-
-/* ---------- Grade ---------- */
+/* =====================================================
+   CATÁLOGO
+   ===================================================== */
 .catalogo {
   width: 100%;
   padding: 0 24px;
-  background: white;
+  background: #fff;
   color: #000;
 }
 
@@ -426,16 +411,9 @@ body.menu-aberto .header {
   background: #000;
 }
 
-/* ================================================
-   Painel "Adição rápida" (lateral direita)
-   ================================================ */
-.rapida-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 90;
-  background: transparent;
-}
-
+/* =====================================================
+   PAINEL "ADIÇÃO RÁPIDA" (lateral direita)
+   ===================================================== */
 .rapida {
   position: fixed;
   top: 0;
@@ -448,12 +426,16 @@ body.menu-aberto .header {
   display: flex;
   flex-direction: column;
   background: #f7f6f3;
+  color: #111;
   transform: translateX(100%);
-  transition: transform 0.35s ease;
+  visibility: hidden;                    /* fechado: fora da tela e fora do teclado */
+  transition: transform 0.35s ease, visibility 0s 0.35s;
 }
 
 .rapida.is-aberta {
   transform: translateX(0);
+  visibility: visible;
+  transition: transform 0.35s ease, visibility 0s;
 }
 
 /* Topo: "Adição rápida" ... "Fechar" */
@@ -469,18 +451,15 @@ body.menu-aberto .header {
 }
 
 .rapida__fechar {
+  position: relative;
+  padding-bottom: 2px;
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  padding-bottom: 2px;
-  position: relative;
 }
 
+/* sublinhado que cresce no hover */
 .rapida__fechar::after {
   content: "";
   position: absolute;
@@ -498,10 +477,6 @@ body.menu-aberto .header {
   transform: scaleX(1);
 }
 
-.rapida__fechar:hover{
-
-}
-
 /* Corpo: cabeçalho + imagem (cresce) + tamanhos + botão */
 .rapida__corpo {
   flex: 1;
@@ -512,6 +487,7 @@ body.menu-aberto .header {
 }
 
 .rapida__titulo {
+  margin: 0;
   font-size: 18px;
   font-weight: 800;
   line-height: 1.1;
@@ -519,7 +495,7 @@ body.menu-aberto .header {
 }
 
 .rapida__preco {
-  margin-top: 4px;
+  margin: 4px 0 0;
   font-size: 9px;
   font-weight: 700;
 }
@@ -545,10 +521,6 @@ body.menu-aberto .header {
   margin-bottom: 8px;
   font-size: 8px;
   color: #666;
-}
-
-.rapida__medidas {
-  text-decoration: none;
 }
 
 .rapida__lista {
@@ -597,16 +569,12 @@ body.menu-aberto .header {
   cursor: not-allowed;
 }
 
-/* ---------- Responsivo ---------- */
-@media (max-width: 1024px) {
-  .grade {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
+/* =====================================================
+   RESPONSIVO
+   ===================================================== */
 
-@media (max-width: 768px) {
-  @media (min-width: 769px) {
-    
+/* Telas grandes (desktop) */
+@media (min-width: 769px) {
   .header {
     padding-left: 40px;
     padding-right: 40px;
@@ -617,49 +585,57 @@ body.menu-aberto .header {
   }
 }
 
+/* Tablet */
+@media (max-width: 1024px) {
+  .grade {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 
+/* Celular */
+@media (max-width: 768px) {
   .grade {
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
   }
 
-  /* botão vira "+" */
+  /* botão "Adição rápida" vira "+" */
   .card__botao {
     left: auto;
     right: 8px;
-    bottom: 10px;          /* ajuste pra ficar logo abaixo da imagem */
+    bottom: 10px;
     width: 28px;
     height: 28px;
     padding: 0;
     font-size: 0;          /* esconde o texto "Adição rápida" */
     background: transparent;
-    opacity: 1;            /* no mobile não existe hover, então fica sempre visível */
+    opacity: 1;            /* no celular não existe hover: fica sempre visível */
     transform: none;
   }
+
   .card__botao::before {
     content: "+";
     font-size: 20px;
     color: #000;
   }
 
-  /* card_info menor */
+  .card--escuro .card__botao::before {
+    color: #fff;           /* o "+" aparece sobre o card preto */
+  }
+
   .card__nome  { font-size: 11px; }
   .card__preco { font-size: 10px; }
 
-  /* painel vira gaveta embaixo */
+  /* painel vira gaveta embaixo
+     (ao abrir, o .rapida.is-aberta lá de cima já zera o transform) */
   .rapida {
-    position: fixed;
     top: auto;
     left: 0;
     right: 0;
     bottom: 0;
     width: 100%;
+    min-width: 0;
     max-height: 40vh;
     transform: translateY(100%);
-    transition: transform .3s ease;
-  }
-  .painel-rapida.aberto {
-    transform: translateY(0);
   }
 }
-

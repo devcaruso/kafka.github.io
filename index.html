@@ -1,47 +1,203 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="img/WhatsApp_Image_2026-11-17_at_14.25.12-removebg-preview.png">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preload" href="img/kafka.png">
-    <title>KAFKA-use.kafka</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>KAFKA-use.kafka</title>
+
+  <link rel="icon" type="image/png" href="img/WhatsApp_Image_2026-11-17_at_14.25.12-removebg-preview.png">
+
+  <!-- Fontes (uma única chamada) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <link rel="preload" as="image" href="img/kafka.jpg">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-   <main class="main">
+  <main>
 
-    <!-- Topo: header + faixa de aviso (ficam sobre o degradê escuro) -->
-    <div class="topo">
-      <header class="header">
-        <a href="#" class="header__carrinho">Carrinho<sup>0</sup></a>
-        <a href="#" class="header__logo">kafka</a>
-        <button type="button" class="header__menu" aria-controls="menu" aria-expanded="false" data-abrir-menu>Menu</button>
-      </header>
+    <!-- ===== HERO ===== -->
+    <section class="main">
 
-      <!-- Faixa de texto corrida: troque os textos à vontade -->
-      <div class="aviso" aria-label="Avisos">
-        <div class="aviso__trilho">
-          <div class="aviso__grupo">
+      <!-- Topo: header + faixa de aviso (ficam sobre o degradê escuro) -->
+      <div class="topo">
+        <header class="header">
+          <a href="#" class="header__carrinho">Carrinho<sup>0</sup></a>
+          <a href="#" class="header__logo">kafka</a>
+          <button type="button" class="header__menu" aria-controls="menu" aria-expanded="false" data-abrir-menu>Menu</button>
+        </header>
+
+        <!-- Faixa de texto corrida: troque os textos à vontade -->
+        <div class="aviso" aria-label="Avisos">
+          <div class="aviso__trilho">
+            <div class="aviso__grupo">
             <span>Nova coleção: use.kafka</span>
             <span>Feminino e masculino: já disponíveis</span>
             <span>Frete grátis acima de R$ 500</span>
-          </div>
-          <div class="aviso__grupo" aria-hidden="true">
+            </div>
+            <div class="aviso__grupo" aria-hidden="true">
             <span>Nova coleção: use.kafka</span>
             <span>Feminino e masculino: já disponíveis</span>
             <span>Frete grátis acima de R$ 500</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Título grande + link da loja -->
-    <div class="hero">
-      <h1>KAFKA</h1>
-      <a href="#" class="loja">Loja</a>
-    </div>
+      <!-- Título grande + link da loja -->
+      <div class="hero">
+        <h1>KAFKA</h1>
+        <a href="#" class="loja">Loja</a>
+      </div>
+
+    </section>
+
+    <!-- ===== CATÁLOGO ===== -->
+    <section class="catalogo">
+      <ul class="grade">
+
+        <li class="card">
+          <div class="card__midia">
+            <a href="produto.html?id=camiseta-oversized-preta" class="card__img-link" aria-label="Ver Camiseta oversized preta">
+              <div class="card__img card__img--principal" style="background-image: url('img/camiseta-costas.png')"></div>
+              <div class="card__img card__img--hover" style="background-image: url('img/camiseta-frente.png')"></div>
+            </a>
+            <button type="button" class="card__botao" data-abrir-rapida
+                    data-nome="Nome do produto" data-preco="R$ 0,00 BRL" data-imagem="img/camiseta-costas.png">
+              Adição rápida
+            </button>
+          </div>
+          <div class="card__info">
+            <h3 class="card__nome"><a href="#">Nome do produto</a></h3>
+            <span class="card__preco">R$ 0,00 BRL</span>
+            <span class="card__cores">1 Cor</span>
+          </div>
+        </li>
+        <li class="card">
+          <div class="card__midia">
+            <a href="#" class="card__img-link" aria-label="Ver produto">
+              <div class="card__img card__img--principal" style="background-image: url('img/camiseta-costas.png')"></div>
+              <div class="card__img card__img--hover"></div>
+            </a>
+            <button type="button" class="card__botao" data-abrir-rapida
+                    data-nome="Nome do produto" data-preco="R$ 0,00 BRL" data-imagem="img/camiseta-costas.png">
+              Adição rápida
+            </button>
+          </div>
+          <div class="card__info">
+            <h3 class="card__nome"><a href="#">Nome do produto</a></h3>
+            <span class="card__preco">R$ 0,00 BRL</span>
+            <span class="card__cores">1 Cor</span>
+          </div>
+        </li>
+        <li class="card">
+          <div class="card__midia">
+            <a href="#" class="card__img-link" aria-label="Ver produto">
+              <div class="card__img card__img--principal"></div>
+              <div class="card__img card__img--hover"></div>
+            </a>
+            <button type="button" class="card__botao" data-abrir-rapida
+                    data-nome="Nome do produto" data-preco="R$ 0,00 BRL" data-imagem="img/camiseta-costas.png">
+              Adição rápida
+            </button>
+          </div>
+          <div class="card__info">
+            <h3 class="card__nome"><a href="#">Nome do produto</a></h3>
+            <span class="card__preco">R$ 0,00 BRL</span>
+            <span class="card__cores">1 Cor</span>
+          </div>
+        </li>
+        <li class="card card--escuro">
+          <div class="card__midia">
+            <a href="#" class="card__img-link" aria-label="Ver produto">
+              <div class="card__img card__img--principal"></div>
+              <div class="card__img card__img--hover"></div>
+            </a>
+            <button type="button" class="card__botao" data-abrir-rapida
+                    data-nome="Nome do produto" data-preco="R$ 0,00 BRL" data-imagem="img/camiseta-costas.png">
+              Adição rápida
+            </button>
+          </div>
+          <div class="card__info">
+            <h3 class="card__nome"><a href="#">Nome do produto</a></h3>
+            <span class="card__preco">R$ 0,00 BRL</span>
+            <span class="card__cores">2 Cores</span>
+          </div>
+        </li>
+        <li class="card">
+          <div class="card__midia">
+            <a href="#" class="card__img-link" aria-label="Ver produto">
+              <div class="card__img card__img--principal"></div>
+              <div class="card__img card__img--hover"></div>
+            </a>
+            <button type="button" class="card__botao" data-abrir-rapida
+                    data-nome="Nome do produto" data-preco="R$ 0,00 BRL" data-imagem="img/camiseta-costas.png">
+              Adição rápida
+            </button>
+          </div>
+          <div class="card__info">
+            <h3 class="card__nome"><a href="#">Nome do produto</a></h3>
+            <span class="card__preco">R$ 0,00 BRL</span>
+            <span class="card__cores">1 Cor</span>
+          </div>
+        </li>
+        <li class="card">
+          <div class="card__midia">
+            <a href="#" class="card__img-link" aria-label="Ver produto">
+              <div class="card__img card__img--principal"></div>
+              <div class="card__img card__img--hover"></div>
+            </a>
+            <button type="button" class="card__botao" data-abrir-rapida
+                    data-nome="Nome do produto" data-preco="R$ 0,00 BRL" data-imagem="img/camiseta-costas.png">
+              Adição rápida
+            </button>
+          </div>
+          <div class="card__info">
+            <h3 class="card__nome"><a href="#">Nome do produto</a></h3>
+            <span class="card__preco">R$ 0,00 BRL</span>
+            <span class="card__cores">1 Cor</span>
+          </div>
+        </li>
+        <li class="card">
+          <div class="card__midia">
+            <a href="#" class="card__img-link" aria-label="Ver produto">
+              <div class="card__img card__img--principal"></div>
+              <div class="card__img card__img--hover"></div>
+            </a>
+            <button type="button" class="card__botao" data-abrir-rapida
+                    data-nome="Nome do produto" data-preco="R$ 0,00 BRL" data-imagem="img/camiseta-costas.png">
+              Adição rápida
+            </button>
+          </div>
+          <div class="card__info">
+            <h3 class="card__nome"><a href="#">Nome do produto</a></h3>
+            <span class="card__preco">R$ 0,00 BRL</span>
+            <span class="card__cores">1 Cor</span>
+          </div>
+        </li>
+        <li class="card">
+          <div class="card__midia">
+            <a href="#" class="card__img-link" aria-label="Ver produto">
+              <div class="card__img card__img--principal"></div>
+              <div class="card__img card__img--hover"></div>
+            </a>
+            <button type="button" class="card__botao" data-abrir-rapida
+                    data-nome="Nome do produto" data-preco="R$ 0,00 BRL" data-imagem="img/camiseta-costas.png">
+              Adição rápida
+            </button>
+          </div>
+          <div class="card__info">
+            <h3 class="card__nome"><a href="#">Nome do produto</a></h3>
+            <span class="card__preco">R$ 0,00 BRL</span>
+            <span class="card__cores">1 Cor</span>
+          </div>
+        </li>
+
+      </ul>
+    </section>
 
   </main>
 
@@ -56,20 +212,20 @@
 
     <nav class="menu__nav">
       <ul>
-        <li><a href="#">Novo</a></li>
-        <li><a href="#">Jeans</a></li>
-        <li><a href="#">Suores</a></li>
-        <li><a href="#">Roupa de frio</a></li>
-        <li><a href="#">Tops</a></li>
-        <li><a href="#">Chapéus</a></li>
-        <li><a href="#">Calças</a></li>
-        <li><a href="#">Shorts</a></li>
-        <li><a href="#">Crianças</a></li>
-        <li><a href="#">Roupas íntimas</a></li>
-        <li><a href="#">Acessórios</a></li>
-        <li><a href="#">Estilo de vida</a></li>
-        <li><a href="#">Calçados</a></li>
-        <li><a href="#">Todos</a></li>
+            <li><a href="#">Novo</a></li>
+            <li><a href="#">Jeans</a></li>
+            <li><a href="#">Suores</a></li>
+            <li><a href="#">Roupa de frio</a></li>
+            <li><a href="#">Tops</a></li>
+            <li><a href="#">Chapéus</a></li>
+            <li><a href="#">Calças</a></li>
+            <li><a href="#">Shorts</a></li>
+            <li><a href="#">Crianças</a></li>
+            <li><a href="#">Roupas íntimas</a></li>
+            <li><a href="#">Acessórios</a></li>
+            <li><a href="#">Estilo de vida</a></li>
+            <li><a href="#">Calçados</a></li>
+            <li><a href="#">Todos</a></li>
       </ul>
     </nav>
 
@@ -82,143 +238,6 @@
     </div>
   </aside>
 
-    
-
-     <main class="catalogo">
-    <ul class="grade">
-
-      <!-- Card 1 -->
-      <li class="card">
-        <a href="#" class="card__link">
-          <div class="card__midia">
-            <div class="card__img card__img--principal" style="background-image: url('img/camiseta-costas.png')"></div>
-            <div class="card__img card__img--hover" style="background-image: url('img/camiseta-frente.png')"></div>
-             </a>
-             <button type="button" class="card__botao" data-abrir-rapida
-                  data-nome="Nome do produto" data-preco="R$ 0,00 BRL" data-imagem="img/camiseta-frente.png">
-            Adição rápida
-          
-          </button>
-          </div>
-          <div class="card__info">
-            <h3 class="card__nome">Nome do produto</h3>
-            <span class="card__preco">R$ 0,00 BRL</span>
-            <span class="card__cores">1 Cor</span>
-          </div>
-        
-      </li>
-
-      <!-- Card 2 -->
-      <li class="card">
-        <a href="#" class="card__link">
-          <div class="card__midia">
-            <div class="card__img card__img--principal" style="background-image: url('img/camiseta-costas.png');"></div>
-            <div class="card__img card__img--hover"></div>
-            <span class="card__botao">Adição rápida</span>
-          </div>
-          <div class="card__info">
-            <h3 class="card__nome">Nome do produto</h3>
-            <span class="card__preco">R$ 0,00 BRL</span>
-            <span class="card__cores">1 Cor</span>
-          </div>
-        </a>
-      </li>
-
-      <!-- Card 3 -->
-      <li class="card">
-        <a href="#" class="card__link">
-          <div class="card__midia">
-            <div class="card__img card__img--principal"></div>
-            <div class="card__img card__img--hover"></div>
-            <span class="card__botao">Adição rápida</span>
-          </div>
-          <div class="card__info">
-            <h3 class="card__nome">Nome do produto</h3>
-            <span class="card__preco">R$ 0,00 BRL</span>
-            <span class="card__cores">1 Cor</span>
-          </div>
-        </a>
-      </li>
-
-      <!-- Card 4 (variação escura) -->
-      <li class="card card--escuro">
-        <a href="#" class="card__link">
-          <div class="card__midia">
-            <div class="card__img card__img--principal"></div>
-            <div class="card__img card__img--hover"></div>
-            <span class="card__botao">Adição rápida</span>
-          </div>
-          <div class="card__info">
-            <h3 class="card__nome">Nome do produto</h3>
-            <span class="card__preco">R$ 0,00 BRL</span>
-            <span class="card__cores">2 Cores</span>
-          </div>
-        </a>
-      </li>
-
-      <!-- Segunda linha-->
-      <li class="card">
-        <a href="#" class="card__link">
-          <div class="card__midia">
-            <div class="card__img card__img--principal"></div>
-            <div class="card__img card__img--hover"></div>
-            <span class="card__botao">Adição rápida</span>
-          </div>
-          <div class="card__info">
-            <h3 class="card__nome">Nome do produto</h3>
-            <span class="card__preco">R$ 0,00 BRL</span>
-            <span class="card__cores">1 Cor</span>
-          </div>
-        </a>
-      </li>
-
-      <li class="card">
-        <a href="#" class="card__link">
-          <div class="card__midia">
-            <div class="card__img card__img--principal"></div>
-            <div class="card__img card__img--hover"></div>
-            <span class="card__botao">Adição rápida</span>
-          </div>
-          <div class="card__info">
-            <h3 class="card__nome">Nome do produto</h3>
-            <span class="card__preco">R$ 0,00 BRL</span>
-            <span class="card__cores">1 Cor</span>
-          </div>
-        </a>
-      </li>
-
-      <li class="card">
-        <a href="#" class="card__link">
-          <div class="card__midia">
-            <div class="card__img card__img--principal"></div>
-            <div class="card__img card__img--hover"></div>
-            <span class="card__botao">Adição rápida</span>
-          </div>
-          <div class="card__info">
-            <h3 class="card__nome">Nome do produto</h3>
-            <span class="card__preco">R$ 0,00 BRL</span>
-            <span class="card__cores">1 Cor</span>
-          </div>
-        </a>
-      </li>
-
-      <li class="card">
-        <a href="#" class="card__link">
-          <div class="card__midia">
-            <div class="card__img card__img--principal"></div>
-            <div class="card__img card__img--hover"></div>
-            <span class="card__botao">Adição rápida</span>
-          </div>
-          <div class="card__info">
-            <h3 class="card__nome">Nome do produto</h3>
-            <span class="card__preco">R$ 0,00 BRL</span>
-            <span class="card__cores">1 Cor</span>
-          </div>
-        </a>
-      </li>
-
-    </ul>
-  </main>
   <!-- ===== Painel "Adição rápida" ===== -->
   <div class="rapida-overlay" data-fechar-rapida hidden></div>
 
@@ -235,7 +254,7 @@
       </div>
 
       <div class="rapida__midia">
-        <div class="rapida__img" style="background-image: url('img/camiseta-costas.png');" role="img" aria-label=""></div>
+        <div class="rapida__img" role="img" aria-label=""></div>
       </div>
 
       <div class="rapida__tamanhos">
