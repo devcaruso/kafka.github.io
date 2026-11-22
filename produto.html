@@ -11,283 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@500;700;800&display=swap" rel="stylesheet">
 
-  <!-- O mesmo CSS da loja (header, menu lateral, cards...) -->
+  <!-- Todo o estilo da loja (inclusive desta página) está no style.css -->
   <link rel="stylesheet" href="css/style.css">
-
-  <!-- Estilos só da página de produto (pode mover para o style.css se preferir) -->
-  <style>
-    [hidden] { display: none !important; }
-
-    /* Página branca: o header deixa de ficar sobre a foto */
-    .pagina-produto { background: #fff; color: #111; }
-    .pagina-produto .topo   { position: relative; inset: auto; }
-    .pagina-produto .header { color: #111; }
-
-    /* ---------- Produto ---------- */
-    .produto {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) minmax(0, 1fr);
-      grid-template-areas: "detalhes galeria info";
-      align-items: center;
-      gap: 40px;
-      min-height: calc(100svh - 52px);
-      padding: 24px 20px 72px;
-    }
-
-    /* Coluna esquerda: abas + texto */
-    .produto__detalhes { grid-area: detalhes; max-width: 440px; }
-
-    .abas {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-bottom: 22px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .aba {
-      padding-bottom: 1px;
-      border-bottom: 1px solid transparent;
-    }
-
-    .aba.is-ativa { border-bottom-color: #111; }
-
-    .aba-texto {
-      font-size: 11px;
-      font-weight: 500;
-      line-height: 1.45;
-    }
-
-    .aba-texto p { margin: 0 0 14px; }
-
-    /* Coluna central: foto + miniaturas */
-    .produto__galeria { grid-area: galeria; }
-
-    .foto-principal {
-      width: 100%;
-      height: clamp(320px, 62vh, 640px);
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-
-    .miniaturas {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 14px;
-    }
-
-    .miniatura {
-      width: 56px;
-      aspect-ratio: 4 / 5;
-      background-color: #f4f4f4;
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
-      border-bottom: 1px solid transparent;
-      opacity: 0.55;
-      transition: opacity 0.2s ease;
-    }
-
-    .miniatura:hover { opacity: 0.85; }
-
-    .miniatura.is-ativa {
-      opacity: 1;
-      border-bottom-color: #111;
-    }
-
-    /* Coluna direita: informações e compra */
-    .produto__info {
-      grid-area: info;
-      justify-self: end;
-      width: 100%;
-      max-width: 440px;
-    }
-
-    .produto__nome {
-      margin: 0 0 10px;
-      font-family: "Archivo Black", sans-serif;
-      font-size: clamp(22px, 2.2vw, 34px);
-      font-weight: 400;
-      line-height: 0.95;
-      text-transform: uppercase;
-    }
-
-    .produto__preco {
-      margin: 0 0 22px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .produto__preco s {
-      margin-left: 8px;
-      font-weight: 500;
-      color: #999;
-    }
-
-    .produto__cor {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 18px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .produto__cor span {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      color: #555;
-    }
-
-    .produto__cor i {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      border: 1px solid #bbb;
-    }
-
-    .produto__rotulo {
-      margin-bottom: 8px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .produto__tamanhos {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: minmax(0, 1fr);
-      gap: 6px;
-      margin-bottom: 16px;
-    }
-
-    .produto__tamanho {
-      padding: 8px 6px;
-      text-align: left;
-      font-size: 11px;
-      font-weight: 700;
-      border-bottom: 1px solid #111;
-      transition: background 0.15s ease, color 0.15s ease;
-    }
-
-    .produto__tamanho:hover { background: #f0efec; }
-
-    .produto__tamanho.is-ativo {
-      background: #111;
-      color: #fff;
-    }
-
-    .produto__acao {
-      width: 100%;
-      padding: 16px 0;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      color: #fff;
-      background: #111;
-      transition: background 0.2s ease;
-    }
-
-    .produto__acao:disabled {
-      background: #8b8b8b;
-      cursor: not-allowed;
-    }
-
-    /* ---------- Produto não encontrado ---------- */
-    .nao-encontrado {
-      min-height: 60svh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      padding: 40px 20px;
-      text-align: center;
-    }
-
-    .nao-encontrado p {
-      margin: 0;
-      font-family: "Archivo Black", sans-serif;
-      font-size: 22px;
-      text-transform: uppercase;
-    }
-
-    .botao-voltar {
-      padding: 14px 28px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      color: #fff;
-      background: #111;
-    }
-
-    /* ---------- Você também pode gostar ---------- */
-    .relacionados { padding-bottom: 56px; }
-
-    .relacionados__titulo {
-      margin: 0 0 14px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    /* ---------- Rodapé ---------- */
-    .rodape {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 16px 32px;
-      padding: 32px 24px calc(32px + env(safe-area-inset-bottom, 0px));
-      border-top: 1px solid #e6e6e6;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      color: #111;
-    }
-
-    .rodape nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 24px;
-    }
-
-    .rodape a:hover { text-decoration: underline; }
-
-    /* ---------- Celular ---------- */
-    @media (max-width: 768px) {
-      .produto {
-        grid-template-columns: minmax(0, 1fr);
-        grid-template-areas: "galeria" "info" "detalhes";
-        align-items: start;
-        gap: 28px;
-        min-height: 0;
-        padding: 8px 16px 56px;
-      }
-
-      .produto__info { justify-self: stretch; max-width: none; }
-      .produto__detalhes { max-width: none; }
-
-      .foto-principal { height: auto; aspect-ratio: 4 / 5; }
-
-      .miniaturas {
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        overflow-x: auto;
-      }
-
-      .miniatura { flex: 0 0 56px; }
-      .rodape { padding-left: 16px; padding-right: 16px; }
-    }
-  </style>
 </head>
 
 <body class="pagina-produto">
@@ -295,7 +20,7 @@
   <!-- ===== Header (o mesmo da loja) ===== -->
   <div class="topo">
     <header class="header">
-      <a href="#" class="header__carrinho">Carrinho<sup>0</sup></a>
+      <button type="button" class="header__carrinho" aria-controls="carrinho" aria-expanded="false" data-abrir-carrinho>Carrinho<sup data-carrinho-qtd>0</sup></button>
       <a href="index.html" class="header__logo">kafka</a>
       <button type="button" class="header__menu" aria-controls="menu" aria-expanded="false" data-abrir-menu>Menu</button>
     </header>
@@ -329,7 +54,8 @@
         <p class="produto__rotulo">Tamanho</p>
         <div class="produto__tamanhos" id="produto-tamanhos"></div>
 
-        <button type="button" class="produto__acao" id="produto-acao" disabled>Selecione o tamanho</button>
+        <p class="produto__aviso" id="produto-aviso" role="alert" hidden>Selecione um tamanho</p>
+        <button type="button" class="produto__acao" id="produto-acao">Adicionar ao carrinho</button>
       </div>
 
     </section>
@@ -359,7 +85,7 @@
     </nav>
   </footer>
 
-  <!-- ===== Menu lateral (o mesmo da loja) ===== -->
+  <!-- ===== Menu lateral ===== -->
   <div class="menu-overlay" data-fechar-menu hidden></div>
 
   <aside class="menu" id="menu" aria-label="Menu principal" aria-hidden="true">
@@ -396,62 +122,22 @@
     </div>
   </aside>
 
-  <!-- 1) dados  2) menu lateral (o index.js ignora o painel "Adição rápida" se ele não existir)  3) esta página -->
+  <!-- 1) dados  2) carrinho (cria a gaveta)  3) menu lateral  4) esta página -->
   <script src="js/produtos.js"></script>
+  <script src="js/carrinho.js"></script>
   <script src="js/index.js"></script>
 
   <script>
-
-(() => {
-  const menu     = document.getElementById('menu');
-  const overlay  = document.querySelector('.menu-overlay');
-  const botaoAbrir = document.querySelector('[data-abrir-menu]');
-
-  function abrir() {
-    menu.classList.add('is-aberto');
-    menu.setAttribute('aria-hidden', 'false');
-    overlay.hidden = false;
-    document.body.classList.add('menu-aberto');
-    botaoAbrir.setAttribute('aria-expanded', 'true');
-    menu.querySelector('.menu__fechar').focus();
-  }
-
-  function fechar() {
-    menu.classList.remove('is-aberto');
-    menu.setAttribute('aria-hidden', 'true');
-    overlay.hidden = true;
-    document.body.classList.remove('menu-aberto');
-    botaoAbrir.setAttribute('aria-expanded', 'false');
-    botaoAbrir.focus();
-  }
-
-  botaoAbrir.addEventListener('click', abrir);
-
-  document.querySelectorAll('[data-fechar-menu]').forEach(el =>
-    el.addEventListener('click', fechar)
-  );
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && menu.classList.contains('is-aberto')) fechar();
-  });
-})();
     (() => {
       const $ = (seletor) => document.querySelector(seletor);
 
-      /* ---------- utilidades ---------- */
-      const esc = (t) => String(t).replace(/[&<>"']/g, (c) =>
-        ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-
-      const brl = (v) =>
-        'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' BRL';
-
       // transforma "linha 1\nlinha 2" em <p>linha 1</p><p>linha 2</p>
       const paragrafos = (texto) =>
-        texto.split('\n').filter(Boolean).map((l) => `<p>${esc(l)}</p>`).join('');
+        texto.split('\n').filter(Boolean).map((l) => `<p>${escapar(l)}</p>`).join('');
 
       /* ---------- 1) lê o id da URL e procura o produto ---------- */
       const id      = new URLSearchParams(location.search).get('id');
-      const produto = PRODUTOS.find((p) => p.id === id);
+      const produto = buscarProduto(id);
 
       if (!produto) {
         $('#nao-encontrado').hidden = false;
@@ -466,10 +152,10 @@
       $('#produto-nome').textContent = produto.nome;
 
       const preco = $('#produto-preco');
-      preco.textContent = brl(produto.preco);
+      preco.textContent = formatarPreco(produto.preco);
       if (produto.precoAntigo) {
         const antigo = document.createElement('s');
-        antigo.textContent = brl(produto.precoAntigo);
+        antigo.textContent = formatarPreco(produto.precoAntigo);
         preco.append(antigo);
       }
 
@@ -478,7 +164,7 @@
         const caixa = $('#produto-cor');
         caixa.hidden = false;
         caixa.innerHTML = 'Cor ' + produto.cores
-          .map((c) => `<span><i style="background:${esc(c.hex)}"></i>${esc(c.nome)}</span>`)
+          .map((c) => `<span><i style="background:${escapar(c.hex)}"></i>${escapar(c.nome)}</span>`)
           .join('');
       }
 
@@ -487,7 +173,7 @@
       const miniaturas    = $('#miniaturas');
 
       function mostrarFoto(indice) {
-        fotoPrincipal.style.backgroundImage = `url('${produto.fotos[indice]}')`;
+        fotoPrincipal.style.backgroundImage = `url(${JSON.stringify(produto.fotos[indice])})`;
         fotoPrincipal.setAttribute('aria-label', `${produto.nome} — foto ${indice + 1}`);
         miniaturas.querySelectorAll('.miniatura').forEach((m, i) => {
           m.classList.toggle('is-ativa', i === indice);
@@ -499,7 +185,7 @@
         const b = document.createElement('button');
         b.type = 'button';
         b.className = 'miniatura';
-        b.style.backgroundImage = `url('${src}')`;
+        b.style.backgroundImage = `url(${JSON.stringify(src)})`;
         b.setAttribute('aria-label', `Ver foto ${i + 1}`);
         b.addEventListener('click', () => mostrarFoto(i));
         miniaturas.append(b);
@@ -508,8 +194,10 @@
       miniaturas.hidden = produto.fotos.length < 2;   // 1 foto só: sem miniaturas
       mostrarFoto(0);
 
-      /* ---------- 5) tamanhos + botão de compra ---------- */
-      const acao = $('#produto-acao');
+      /* ---------- 5) tamanhos + adicionar ao carrinho ---------- */
+      const caixaTamanhos = $('#produto-tamanhos');
+      const aviso         = $('#produto-aviso');
+      const acao          = $('#produto-acao');
       let tamanhoEscolhido = null;
 
       produto.tamanhos.forEach((t) => {
@@ -520,27 +208,35 @@
         b.setAttribute('aria-pressed', 'false');
         b.addEventListener('click', () => {
           tamanhoEscolhido = t;
-          document.querySelectorAll('.produto__tamanho').forEach((x) => {
+          caixaTamanhos.querySelectorAll('.produto__tamanho').forEach((x) => {
             const ativo = x === b;
             x.classList.toggle('is-ativo', ativo);
             x.setAttribute('aria-pressed', String(ativo));
           });
-          acao.disabled = false;
-          acao.textContent = 'Adicionar à sacola';
+          aviso.hidden = true;
+          caixaTamanhos.classList.remove('produto__tamanhos--erro');
         });
-        $('#produto-tamanhos').append(b);
+        caixaTamanhos.append(b);
       });
 
       acao.addEventListener('click', () => {
-        if (acao.disabled) return;
-        // Aqui entra a sua lógica de sacola:
-        console.log('Adicionar à sacola:', { id: produto.id, nome: produto.nome, tamanho: tamanhoEscolhido });
+        if (!tamanhoEscolhido) {                       // sem tamanho: não adiciona
+          aviso.hidden = false;
+          caixaTamanhos.classList.remove('produto__tamanhos--erro');
+          void caixaTamanhos.offsetWidth;               // reinicia a animação
+          caixaTamanhos.classList.add('produto__tamanhos--erro');
+          return;
+        }
 
-        const contador = $('.header__carrinho sup');
-        if (contador) contador.textContent = (parseInt(contador.textContent, 10) || 0) + 1;
+        Carrinho.adicionar({
+          id:      produto.id,
+          tamanho: tamanhoEscolhido,
+          nome:    produto.nome,
+          foto:    produto.fotos[0] || '',
+          preco:   produto.preco
+        });
 
-        acao.textContent = 'Adicionado';
-        setTimeout(() => { acao.textContent = 'Adicionar à sacola'; }, 1400);
+        Carrinho.abrir();                               // mostra o carrinho já com o item
       });
 
       /* ---------- 6) abas: Detalhes / Envio / Devoluções ---------- */
@@ -560,7 +256,7 @@
         a.addEventListener('click', () => mostrarAba(a.dataset.aba)));
       mostrarAba('detalhes');
 
-      /* ---------- 7) "Você também pode gostar" (usa os cards da loja) ---------- */
+      /* ---------- 7) "Você também pode gostar" ---------- */
       const outros = PRODUTOS.filter((p) => p.id !== produto.id).slice(0, 4);
 
       if (outros.length) {
@@ -569,15 +265,14 @@
           return `
             <li class="card">
               <div class="card__midia">
-                <a href="${link}" class="card__img-link" aria-label="Ver ${esc(p.nome)}">
-                  <div class="card__img card__img--principal" style="background-image:url('${esc(p.fotos[0])}')"></div>
-                  ${p.fotos[1] ? `<div class="card__img card__img--hover" style="background-image:url('${esc(p.fotos[1])}')"></div>` : ''}
+                <a href="${link}" class="card__img-link" aria-label="Ver ${escapar(p.nome)}">
+                  <div class="card__img card__img--principal" style="background-image:url('${escapar(p.fotos[0] || '')}')"></div>
+                  ${p.fotos[1] ? `<div class="card__img card__img--hover" style="background-image:url('${escapar(p.fotos[1])}')"></div>` : ''}
                 </a>
               </div>
               <div class="card__info">
-                <h3 class="card__nome"><a href="${link}">${esc(p.nome)}</a></h3>
-                <span class="card__preco">${brl(p.preco)}</span>
-                <span class="card__cores">${p.cores.length} ${p.cores.length > 1 ? 'Cores' : 'Cor'}</span>
+                <h3 class="card__nome"><a href="${link}">${escapar(p.nome)}</a></h3>
+                <span class="card__preco">${formatarPreco(p.preco)}</span>
               </div>
             </li>`;
         }).join('');

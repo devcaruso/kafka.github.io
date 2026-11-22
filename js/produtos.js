@@ -42,7 +42,7 @@ const PRODUTOS = [
       "80% algodão, 20% poliéster\nFabricado no Brasil",
     tamanhos: ["M", "L", "XL", "XXL"],
     cores: [{ nome: "Preto", hex: "#1c1b20" }, { nome: "Cinza", hex: "#8a8a8a" }],
-    fotos: ["img/camiseta-frente.png"]
+    fotos: ["img/camisa-masculino-umbro-classic-azul.webp"]
   },
   {
     id: "jaqueta-puffer-marrom",
@@ -67,3 +67,20 @@ const INFO_LOJA = {
   devolucoes:
     "Você tem até 7 dias após o recebimento para devolver ou trocar a peça, desde que ela esteja sem uso e com a etiqueta."
 };
+
+/* =====================================================
+   FUNÇÕES AUXILIARES
+   (usadas pela grade, pela página de produto e pelo carrinho)
+   ===================================================== */
+
+// procura um produto pelo id
+const buscarProduto = (id) => PRODUTOS.find((p) => p.id === id);
+
+// 1299 → "R$ 1.299,00 BRL"
+const formatarPreco = (valor) =>
+  'R$ ' + Number(valor).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' BRL';
+
+// evita que um texto vire HTML quando é colocado dentro de um template
+const escapar = (texto) =>
+  String(texto).replace(/[&<>"']/g, (c) =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
