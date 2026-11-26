@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Finalizar pedido — KAFKA</title>
+
+  <link rel="icon" type="image/png" href="img/WhatsApp_Image_2026-11-17_at_14.25.12-removebg-preview.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/checkout.css">
+</head>
+
+<body class="pagina-checkout">
+
+  <!-- ===== Topo simples ===== -->
+  <header class="checkout-topo">
+    <a href="index.html#catalogo" class="checkout-topo__voltar">← Voltar à loja</a>
+    <a href="index.html" class="checkout-topo__logo">kafka</a>
+    <span></span>
+  </header>
+
+  <main>
+
+    <!-- ===== Carrinho vazio ===== -->
+    <section class="nao-encontrado" id="checkout-vazio" hidden>
+      <p>Seu carrinho está vazio</p>
+      <a href="index.html#catalogo" class="botao-voltar">Voltar para a loja</a>
+    </section>
+
+    <!-- ===== Checkout ===== -->
+    <div class="checkout" id="checkout" hidden>
+
+      <!-- Formulário -->
+      <form class="checkout__form" id="form-checkout" novalidate>
+
+        <section class="bloco">
+          <div class="bloco__topo">
+            <h2 class="bloco__titulo">Contato</h2>
+            <button type="button" class="checkout__link" id="btn-entrar">Entrar</button>
+            <button type="button" class="checkout__link" id="btn-sair" hidden>Sair</button>
+          </div>
+          <div class="campo" data-campo="contato">
+            <input type="text" id="contato" name="contato" placeholder=" " autocomplete="username" inputmode="email">
+            <label for="contato">E-mail ou telefone</label>
+            <p class="campo__erro" hidden></p>
+          </div>
+        </section>
+
+        <section class="bloco">
+          <h2 class="bloco__titulo">Entrega</h2>
+
+          <div class="campo campo--select">
+            <select id="pais" name="pais" autocomplete="country-name">
+              <option value="Brasil" selected>Brasil</option>
+            </select>
+            <label for="pais">País/Região</label>
+          </div>
+
+          <div class="campos-2">
+          <div class="campo" data-campo="nome">
+            <input type="text" id="nome" name="nome" placeholder=" " autocomplete="given-name">
+            <label for="nome">Nome</label>
+            <p class="campo__erro" hidden></p>
+          </div>
+          <div class="campo" data-campo="sobrenome">
+            <input type="text" id="sobrenome" name="sobrenome" placeholder=" " autocomplete="family-name">
+            <label for="sobrenome">Sobrenome</label>
+            <p class="campo__erro" hidden></p>
+          </div>
+          </div>
+
+          <div class="campo" data-campo="cep">
+            <input type="text" id="cep" name="cep" placeholder=" " autocomplete="postal-code" inputmode="numeric" maxlength="9">
+            <label for="cep">CEP</label>
+            <p class="campo__erro" hidden></p>
+          </div>
+          <div class="campo" data-campo="endereco">
+            <input type="text" id="endereco" name="endereco" placeholder=" " autocomplete="address-line1">
+            <label for="endereco">Endereço (rua e número)</label>
+            <p class="campo__erro" hidden></p>
+          </div>
+          <div class="campo" data-campo="complemento">
+            <input type="text" id="complemento" name="complemento" placeholder=" " autocomplete="address-line2">
+            <label for="complemento">Apartamento, suíte, etc. (opcional)</label>
+            <p class="campo__erro" hidden></p>
+          </div>
+
+          <div class="campos-2">
+          <div class="campo" data-campo="cidade">
+            <input type="text" id="cidade" name="cidade" placeholder=" " autocomplete="address-level2">
+            <label for="cidade">Cidade</label>
+            <p class="campo__erro" hidden></p>
+          </div>
+            <div class="campo campo--select" data-campo="estado">
+              <select id="estado" name="estado" autocomplete="address-level1">
+                <option value="">Selecione</option>
+            
+            <option value="PA">Pará</option>
+            
+              </select>
+              <label for="estado">Estado</label>
+              <p class="campo__erro" hidden></p>
+            </div>
+          </div>
+
+          <div class="campo" data-campo="telefone">
+            <input type="tel" id="telefone" name="telefone" placeholder=" " autocomplete="tel" inputmode="tel" maxlength="15">
+            <label for="telefone">Telefone</label>
+            <p class="campo__erro" hidden></p>
+          </div>
+        </section>
+
+        <section class="bloco">
+          <h2 class="bloco__titulo">Pagamento</h2>
+          <p class="bloco__ajuda">O pagamento é feito à parte. Escolha como você prefere pagar.</p>
+
+          <div class="opcoes" role="radiogroup" aria-label="Forma de pagamento" data-campo="pagamento">
+            <label class="opcao"><input type="radio" name="pagamento" value="pix"><span>Pix</span></label>
+            <label class="opcao"><input type="radio" name="pagamento" value="cartao"><span>Cartão</span></label>
+            <label class="opcao"><input type="radio" name="pagamento" value="dinheiro"><span>Dinheiro</span></label>
+          </div>
+          <p class="campo__erro" data-erro-de="pagamento" hidden></p>
+        </section>
+
+        <label class="checkout__salvar" id="salvar-wrap" hidden>
+          <input type="checkbox" id="salvar" checked>
+          <span>Salvar minhas informações neste aparelho para a próxima compra</span>
+        </label>
+
+        <button type="submit" class="checkout__finalizar" id="btn-finalizar">Finalizar pedido</button>
+      </form>
+
+      <!-- Resumo do pedido -->
+      <aside class="resumo" aria-label="Resumo do pedido">
+        <details class="resumo__detalhes" id="resumo-detalhes" open>
+          <summary class="resumo__toggle"><span>Resumo do pedido</span><strong id="resumo-total-topo"></strong></summary>
+
+          <ul class="resumo__itens" id="resumo-itens"></ul>
+
+          <div class="resumo__linhas">
+            <p><span id="resumo-rotulo">Subtotal</span><span id="resumo-subtotal"></span></p>
+            <p><span>Envio</span><span>A combinar</span></p>
+          </div>
+
+          <p class="resumo__total"><span>Total</span><span><small>BRL</small> <strong id="resumo-total"></strong></span></p>
+
+          <button type="button" class="checkout__link" id="editar-carrinho">Editar carrinho</button>
+        </details>
+      </aside>
+    </div>
+
+    <!-- ===== Pedido realizado ===== -->
+    <section class="confirmacao" id="confirmacao" hidden>
+      <p class="confirmacao__selo">Pedido realizado</p>
+      <h1 class="confirmacao__numero" id="conf-numero"></h1>
+      <p class="confirmacao__texto">
+        Recebemos o seu pedido. O pagamento será feito à parte, por <strong id="conf-pagamento"></strong>.
+        Guarde o número acima.
+      </p>
+
+      <ul class="resumo__itens" id="conf-itens"></ul>
+
+      <p class="resumo__total"><span>Total</span><span><small>BRL</small> <strong id="conf-total"></strong></span></p>
+
+      <div class="confirmacao__entrega">
+        <p class="confirmacao__rotulo">Entrega</p>
+        <p id="conf-entrega"></p>
+        <p class="confirmacao__rotulo">Contato</p>
+        <p id="conf-contato"></p>
+      </div>
+
+      <a href="index.html" class="botao-voltar">Voltar para a loja</a>
+    </section>
+
+  </main>
+
+  <!-- ===== Entrar (e-mail ou telefone) ===== -->
+  <dialog class="login" id="login" aria-labelledby="login-titulo">
+    <form id="form-login" novalidate>
+      <div class="login__topo">
+        <h2 class="bloco__titulo" id="login-titulo">Entrar</h2>
+        <button type="button" class="login__fechar" id="login-fechar" aria-label="Fechar">×</button>
+      </div>
+      <p class="bloco__ajuda">Digite seu e-mail ou telefone. Seus dados de entrega ficam salvos neste aparelho para a próxima compra.</p>
+
+      <div class="campo" data-campo="login-contato">
+        <input type="text" id="login-contato" placeholder=" " autocomplete="username" inputmode="email">
+        <label for="login-contato">E-mail ou telefone</label>
+        <p class="campo__erro" id="login-erro" hidden></p>
+      </div>
+
+      <button type="submit" class="checkout__finalizar">Entrar</button>
+    </form>
+  </dialog>
+
+  <script src="js/produtos.js"></script>
+  <script src="js/carrinho.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>

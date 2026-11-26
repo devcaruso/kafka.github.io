@@ -99,7 +99,7 @@ const Carrinho = (() => {
   const finalizar = document.getElementById('carrinho-finalizar');
 
   /* ---------- desenha tudo a partir do array "itens" ---------- */
-  function render() {
+  function desenhar() {
     // contador (header + título da gaveta)
     document.querySelectorAll('[data-carrinho-qtd]').forEach((el) => { el.textContent = quantidadeTotal(); });
 
@@ -137,6 +137,12 @@ const Carrinho = (() => {
     corpo.querySelectorAll('[data-foto]').forEach((el) => {
       el.style.backgroundImage = `url(${JSON.stringify(el.dataset.foto)})`;
     });
+  }
+
+  // desenha e avisa as outras partes da página (ex.: o resumo do checkout)
+  function render() {
+    desenhar();
+    document.dispatchEvent(new CustomEvent('carrinho:mudou'));
   }
 
   /* ---------- abrir / fechar ---------- */
@@ -193,8 +199,8 @@ const Carrinho = (() => {
 
   finalizar.addEventListener('click', () => {
     if (!itens.length) return;
-    // Aqui entra o seu checkout (ex.: montar a mensagem do WhatsApp com os itens)
-    console.log('Finalizar compra:', itens, 'Total:', valorTotal());
+    if (document.body.classList.contains('pagina-checkout')) fechar();   // já está no checkout
+    else window.location.href = 'checkout.html';
   });
 
   // outra aba mudou o carrinho → atualiza esta também

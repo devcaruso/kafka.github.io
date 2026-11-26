@@ -1090,6 +1090,7 @@ body.carrinho-aberto {
 /* ---------- Rodapé ---------- */
 .rodape {
   display: flex;
+  height: 50vh;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 16px 32px;
