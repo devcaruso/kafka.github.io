@@ -9,8 +9,20 @@
   const $  = (seletor, raiz = document) => raiz.querySelector(seletor);
   const $$ = (seletor, raiz = document) => [...raiz.querySelectorAll(seletor)];
 
+  /* ==========================================================
+     CONFIGURE AQUI os dados da loja
+     - whatsapp: número com 55 + DDD + número, só dígitos (ex.: 5593999999999)
+     - pixChave: a chave Pix que aparece para o cliente
+     ========================================================== */
+  const LOJA = {
+    whatsapp: '5593991441257',
+    pixChave: '93991441257'
+  };
+
   const CHAVE_SESSAO = 'kafka:sessao';   // quem está "logado" neste aparelho
   const CHAVE_CONTAS = 'kafka:contas';   // dados de entrega salvos de cada pessoa
+  const CHAVE_PEDIDO = 'kafka:ultimoPedido';   // último pedido (para o cliente ainda poder pagar se atualizar a página)
+  const VALIDADE_PEDIDO = 24 * 60 * 60 * 1000;   // 24 horas
   const PAGAMENTOS   = { pix: 'Pix', cartao: 'Cartão', dinheiro: 'Dinheiro' };
   const CAMPOS       = ['nome', 'sobrenome', 'cep', 'endereco', 'complemento', 'cidade', 'estado', 'telefone'];
 
@@ -260,9 +272,14 @@
 
   function mostrarEstado() {
     const temItens = Carrinho.itens().length > 0;
+    const recente  = temItens ? null : lerUltimoPedido();
+
     $('#checkout').hidden       = !temItens;
-    $('#checkout-vazio').hidden = temItens;
+    $('#checkout-vazio').hidden = temItens || Boolean(recente);
+    $('#confirmacao').hidden    = !recente;
+
     if (temItens) renderResumo();
+    if (recente) preencherConfirmacao(recente);
   }
 
   // no celular o resumo começa fechado; no computador fica sempre aberto
@@ -275,9 +292,7 @@
   $('#editar-carrinho').addEventListener('click', () => Carrinho.abrir());
 
   // o carrinho mudou (pela gaveta ou por outra aba) → atualiza o resumo
-  document.addEventListener('carrinho:mudou', () => {
-    if (!pedidoFeito) mostrarEstado();
-  });
+  document.addEventListener('carrinho:mudou', mostrarEstado);
 
   /* ---------- finalizar pedido ---------- */
   function montarPedido() {
@@ -289,7 +304,7 @@
       numero:    'KF-' + Date.now().toString(36).toUpperCase(),
       data:      new Date().toISOString(),
       cliente: {
-        contato:   { tipo: contato.tipo, valor: contato.valor },
+        contato:   { tipo: contato.tipo, valor: contato.valor, exibicao: contato.exibicao },
         nome:      valor('nome').trim(),
         sobrenome: valor('sobrenome').trim(),
         telefone:  normalizarTelefone(valor('telefone'))
@@ -316,9 +331,63 @@
     console.log('Pedido finalizado:', pedido);
   }
 
-  function mostrarConfirmacao(pedido) {
-    $('#checkout').hidden       = true;
-    $('#checkout-vazio').hidden = true;
+  /* ---------- último pedido (guardado por 24 h neste aparelho) ---------- */
+  function lerUltimoPedido() {
+    const p = ler(CHAVE_PEDIDO, null);
+    const ok = p && typeof p.numero === 'string' && Array.isArray(p.itens) && p.itens.length
+      && p.cliente && p.cliente.contato && typeof p.cliente.contato.exibicao === 'string'
+      && p.entrega && PAGAMENTOS[p.pagamento] && Number.isFinite(p.total)
+      && Date.now() - Date.parse(p.data) < VALIDADE_PEDIDO;
+    return ok ? p : null;
+  }
+
+  /* ---------- mensagem do WhatsApp ---------- */
+  const formatarCep = (cep) => `${cep.slice(0, 5)}-${cep.slice(5)}`;
+
+  function mensagemWhatsApp(p) {
+    const c = p.cliente;
+    const e = p.entrega;
+    const linhas = [];
+
+    linhas.push(`*Pedido ${p.numero}*`, '');
+
+    linhas.push('*Cliente*');
+    linhas.push(`Nome: ${c.nome} ${c.sobrenome}`);
+    if (c.contato.tipo === 'email') linhas.push(`E-mail: ${c.contato.exibicao}`);
+    linhas.push(`Telefone: ${formatarTelefone(c.telefone)}`);
+    linhas.push('');
+
+    linhas.push('*Endereço de entrega*');
+    linhas.push(e.endereco + (e.complemento ? `, ${e.complemento}` : ''));
+    linhas.push(`${e.cidade} - ${e.estado}`);
+    linhas.push(`CEP ${formatarCep(e.cep)}`);
+    linhas.push('');
+
+    linhas.push('*Itens do pedido*');
+    p.itens.forEach((i) => {
+      linhas.push(`${i.quantidade}x ${i.nome} (${i.tamanho}) - ${formatarPreco(i.preco * i.quantidade)}`);
+    });
+    linhas.push('');
+
+    linhas.push(`Subtotal: ${formatarPreco(p.subtotal)}`);
+    linhas.push('Frete: a combinar');
+    linhas.push(`*Total: ${formatarPreco(p.total)}*`);
+    linhas.push('');
+
+    if (p.pagamento === 'pix') {
+      linhas.push('*Pagamento:* Pix');
+      linhas.push(`Chave Pix: ${LOJA.pixChave || 'a combinar'}`);
+    } else {
+      linhas.push(`*Pagamento:* ${PAGAMENTOS[p.pagamento]} - a combinar`);
+    }
+
+    return linhas.join('\n');
+  }
+
+  /* ---------- tela "Pedido realizado" ---------- */
+  function preencherConfirmacao(pedido) {
+    const e = pedido.entrega;
+    const c = pedido.cliente;
 
     $('#conf-numero').textContent    = pedido.numero;
     $('#conf-pagamento').textContent = PAGAMENTOS[pedido.pagamento];
@@ -328,15 +397,57 @@
     lista.innerHTML = htmlItens(pedido.itens);
     aplicarFotos(lista);
 
-    const e = pedido.entrega;
     $('#conf-entrega').textContent =
-      `${pedido.cliente.nome} ${pedido.cliente.sobrenome} — ${e.endereco}${e.complemento ? ', ' + e.complemento : ''}, ${e.cidade} - ${e.estado}, CEP ${e.cep.slice(0, 5)}-${e.cep.slice(5)}`;
-    $('#conf-contato').textContent = (sessao || identificar(valor('contato'))).exibicao;
+      `${c.nome} ${c.sobrenome} — ${e.endereco}${e.complemento ? ', ' + e.complemento : ''}, ${e.cidade} - ${e.estado}, CEP ${formatarCep(e.cep)}`;
+    $('#conf-contato').textContent = c.contato.exibicao;
 
-    $('#confirmacao').hidden = false;
+    // pagamento: Pix mostra a chave; Cartão e Dinheiro ficam "a combinar"
+    const pix = pedido.pagamento === 'pix';
+    $('#conf-pix').hidden = !pix;
+    if (pix) {
+      $('#conf-pagto').textContent = 'Pix';
+      $('#conf-chave').textContent = LOJA.pixChave ? `Chave Pix: ${LOJA.pixChave}` : 'Chave Pix: a combinar';
+      $('#conf-copiar').hidden = !LOJA.pixChave;
+    } else {
+      $('#conf-pagto').textContent = `${PAGAMENTOS[pedido.pagamento]} — a combinar`;
+    }
+
+    // botão "Pagar agora" → WhatsApp da loja com o pedido completo
+    const numeroOk = /^\d{12,13}$/.test(LOJA.whatsapp);
+    const botao    = $('#btn-pagar');
+    botao.href = numeroOk
+      ? `https://wa.me/${LOJA.whatsapp}?text=${encodeURIComponent(mensagemWhatsApp(pedido))}`
+      : '#';
+    botao.dataset.configurado = numeroOk ? 'sim' : 'nao';
+    $('#pagar-erro').hidden = true;
+
     document.title = `Pedido ${pedido.numero} — KAFKA`;
-    window.scrollTo(0, 0);
   }
+
+  $('#btn-pagar').addEventListener('click', (e) => {
+    if (e.currentTarget.dataset.configurado === 'sim') return;      // segue para o WhatsApp
+    e.preventDefault();
+    const erro = $('#pagar-erro');
+    erro.textContent = 'WhatsApp da loja não configurado (veja LOJA.whatsapp no início do js/checkout.js).';
+    erro.hidden = false;
+  });
+
+  $('#conf-copiar').addEventListener('click', async (e) => {
+    const botao = e.currentTarget;
+    try {
+      await navigator.clipboard.writeText(LOJA.pixChave);
+      botao.textContent = 'Copiado';
+      setTimeout(() => { botao.textContent = 'Copiar chave'; }, 1500);
+    } catch {
+      // sem permissão para copiar: seleciona o texto para a pessoa copiar na mão
+      const alvo = $('#conf-chave');
+      const faixa = document.createRange();
+      faixa.selectNodeContents(alvo);
+      const selecao = window.getSelection();
+      selecao.removeAllRanges();
+      selecao.addRange(faixa);
+    }
+  });
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -359,8 +470,9 @@
 
     registrarPedido(pedido);
     salvarPerfil();
-    Carrinho.limpar();               // zera o carrinho da pessoa (e o localStorage)
-    mostrarConfirmacao(pedido);
+    gravar(CHAVE_PEDIDO, pedido);    // para o cliente ainda conseguir pagar se atualizar a página
+    Carrinho.limpar();               // zera o carrinho da pessoa (e o localStorage) → mostra a confirmação
+    window.scrollTo(0, 0);
   });
 
   /* ---------- início ---------- */

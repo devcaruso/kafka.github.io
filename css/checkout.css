@@ -1610,3 +1610,30 @@ body.carrinho-aberto {
     font-size: 16px;
   }
 }
+
+/* ---------- Confirmação: pagamento e botão "Pagar agora" ---------- */
+.confirmacao__pix {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  margin-top: -2px;
+}
+
+.confirmacao__chave {
+  font-weight: 700;
+  word-break: break-all;
+  user-select: all;
+}
+
+.confirmacao__pagar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.confirmacao__ajuda {
+  margin: 10px 0 20px;
+  text-align: center;
+}

@@ -98,9 +98,33 @@
             <div class="campo campo--select" data-campo="estado">
               <select id="estado" name="estado" autocomplete="address-level1">
                 <option value="">Selecione</option>
-            
+            <option value="AC">Acre</option>
+            <option value="AL">Alagoas</option>
+            <option value="AP">Amapá</option>
+            <option value="AM">Amazonas</option>
+            <option value="BA">Bahia</option>
+            <option value="CE">Ceará</option>
+            <option value="DF">Distrito Federal</option>
+            <option value="ES">Espírito Santo</option>
+            <option value="GO">Goiás</option>
+            <option value="MA">Maranhão</option>
+            <option value="MT">Mato Grosso</option>
+            <option value="MS">Mato Grosso do Sul</option>
+            <option value="MG">Minas Gerais</option>
             <option value="PA">Pará</option>
-            
+            <option value="PB">Paraíba</option>
+            <option value="PR">Paraná</option>
+            <option value="PE">Pernambuco</option>
+            <option value="PI">Piauí</option>
+            <option value="RJ">Rio de Janeiro</option>
+            <option value="RN">Rio Grande do Norte</option>
+            <option value="RS">Rio Grande do Sul</option>
+            <option value="RO">Rondônia</option>
+            <option value="RR">Roraima</option>
+            <option value="SC">Santa Catarina</option>
+            <option value="SP">São Paulo</option>
+            <option value="SE">Sergipe</option>
+            <option value="TO">Tocantins</option>
               </select>
               <label for="estado">Estado</label>
               <p class="campo__erro" hidden></p>
@@ -171,9 +195,20 @@
         <p id="conf-entrega"></p>
         <p class="confirmacao__rotulo">Contato</p>
         <p id="conf-contato"></p>
+        <p class="confirmacao__rotulo">Pagamento</p>
+        <p id="conf-pagto"></p>
+        <div class="confirmacao__pix" id="conf-pix" hidden>
+          <span class="confirmacao__chave" id="conf-chave"></span>
+          <button type="button" class="checkout__link" id="conf-copiar">Copiar chave</button>
+        </div>
       </div>
 
-      <a href="index.html" class="botao-voltar">Voltar para a loja</a>
+      <!-- Abre o WhatsApp da loja com o pedido completo na mensagem -->
+      <a href="#" class="checkout__finalizar confirmacao__pagar" id="btn-pagar" target="_blank" rel="noopener noreferrer">Pagar agora</a>
+      <p class="campo__erro" id="pagar-erro" hidden></p>
+      <p class="bloco__ajuda confirmacao__ajuda">Você será levado ao WhatsApp com os dados do pedido.</p>
+
+      <a href="index.html" class="checkout__link">Voltar para a loja</a>
     </section>
 
   </main>
